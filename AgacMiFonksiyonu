@@ -1,0 +1,42 @@
+ public bool AgacMi()
+        {
+            node temp = root;
+
+            while (temp != null && temp.left!=null && temp.right!=null)
+            {
+                if (temp == temp.left || temp == temp.right)
+                {
+                    return false;
+                }
+                else if (Min()>Max())
+                {
+                    return false;
+                }
+                else if (temp.left.data > temp.right.data)
+                {
+                    return false;
+                }
+                
+
+            }
+            return true;
+        }
+        public int Min()
+        {
+            node temp = root;
+            while(temp != null)
+            {
+                temp=temp.left;
+            }
+            return temp.data;
+        }
+        public int Max()
+        {
+            node temp = root;
+            while (temp != null)
+            {
+                temp = temp.right;
+            }
+            return temp.data;
+        }
+    }
