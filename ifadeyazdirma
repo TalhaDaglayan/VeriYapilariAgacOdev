@@ -1,0 +1,84 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Linq;
+using System.Reflection.Metadata.Ecma335;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace veriyapılariOncelikliKuyruk
+{
+    public class node
+    {
+        public char data;
+        public node left;
+        public node right;
+        public node(char data) 
+        {
+            this.data = data;
+            left = null;
+            right = null;
+        }
+
+    }
+
+    public class tree
+    {
+        public node root;
+        public tree()
+        {
+            root = null;
+        }
+
+        public void printInorder(node node) //recursive yapiyla sirayla yazdirma
+        {
+            
+            if (node.left!=null)
+            {
+                
+                printInorder(node.left);
+            }
+            Console.Write(node.data);
+            if (node.right != null)
+            {
+                
+                printInorder(node.right);
+            }
+        }
+        public void printInorder(){
+            printInorder(root);
+        }
+    }
+
+    
+    internal class Program
+    {
+        
+        static void Main(string[] args)
+        {
+            tree t = new tree();
+
+            //dugum degeri girme
+
+            t.root = new node ('-');
+
+            t.root.left = new node ('+');
+            t.root.left.left = new node ('x');
+            t.root.left.right = new node ('/');
+            t.root.left.right.left = new node ('y');
+            t.root.left.right.right = new node ('z');
+
+            t.root.right = new node('+');
+            t.root.right.left = new node('^');
+            t.root.right.left.left = new node('A');
+            t.root.right.left.right = new node('2');
+            t.root.right.right = new node('*');
+            t.root.right.right.left = new node('4');
+            t.root.right.right.right = new node('B');
+           
+            t.printInorder();
+        }
+    }
+}
