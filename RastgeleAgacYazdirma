@@ -1,0 +1,130 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Reflection.Metadata.Ecma335;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace veriyapılariOncelikliKuyruk
+{
+    public class node
+    {
+        public int data;
+        public node left;
+        public node right;
+        public node(int data) 
+        {
+            this.data = data;
+            left = null;
+            right = null;
+        }
+
+    }
+
+    public class tree
+    {
+        public node root;
+        public Random rnd;
+        public tree()
+        {
+            root = null;
+            rnd = new Random();
+        }
+
+        public void RandomEkle(node node, int derinlik) //Recursive olarak derinlik 5 olana kadar agac ekleme
+        {
+            if(derinlik == 5)
+            {
+                return;
+            }
+            node.left = new node(rnd.Next(10));
+            RandomEkle(node.left, derinlik+1);
+            node.right = new node(rnd.Next(10));
+            RandomEkle(node.right, derinlik+1);
+
+        }
+        public void RandomEkle()
+        {
+            root = new node(rnd.Next(10));
+            RandomEkle(root, 1);
+        }
+
+        public void printInorder(node node) //recursive yapiyla inorder yazdirma
+        {
+            
+            if (node.left!=null)
+            {
+                
+                printInorder(node.left);
+            }
+            Console.Write(node.data + " ");
+            if (node.right != null)
+            {
+                
+                printInorder(node.right);
+            }
+        }
+        public void printInorder(){
+            printInorder(root);
+        }
+
+        public void printPreorder(node node) //recursive yapiyla Preorder yazdirma
+        {
+            Console.Write(node.data + " ");
+            if(node.left != null)
+            {
+                printPreorder(node.left);
+            }
+            if (node.right != null)
+            {
+                printPreorder(node.right);
+            }
+        }
+        public void printPreorder()
+        {
+            printPreorder(root);
+        }
+
+        public void printPostorder(node node) //recursive yapiyla Postorder yazdirma
+        {
+            if (node.left != null)
+            {
+                printPostorder(node.left);
+            }
+            if (node.right != null)
+            {
+                printPostorder(node.right);
+            }
+            Console.Write(node.data + " ");
+        }
+        public void printPostorder()
+        {
+            printPostorder(root);
+        }
+    }
+
+    
+    internal class Program
+    {
+        
+        static void Main(string[] args)
+        {
+            tree t = new tree();
+
+            t.RandomEkle();
+            Console.Write("InOrder : ");
+            t.printInorder();
+            Console.WriteLine("");
+            Console.Write("PreOrder : ");
+            t.printPreorder();
+            Console.WriteLine("");
+            Console.Write("PostOrder : ");
+            t.printPostorder();
+            
+        }
+    }
+}
